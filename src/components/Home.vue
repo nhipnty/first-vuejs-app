@@ -15,6 +15,7 @@
 
 <script>
 import Task from "./Task.vue";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Home",
   components: {
@@ -23,20 +24,20 @@ export default {
   data() {
     return {
       task: "",
-      tasks: [
-        { name: "sssss", isDone: false },
-        { name: "cba", isDone: true },
-      ],
     };
   },
+  computed: {
+    ...mapGetters(["tasks"]),
+  },
   methods: {
+    ...mapActions(["AddTask", "RemoveTask"]),
     addTask() {
-      this.tasks.push({ name: this.task, isDone: false });
+      this.AddTask({ name: this.task, isDone: false });
       this.task = "";
     },
     removeTask(index) {
       if (confirm(`index: ${index}`)) {
-        this.tasks.splice(index, 1);
+        this.RemoveTask(index);
       }
     },
   },
