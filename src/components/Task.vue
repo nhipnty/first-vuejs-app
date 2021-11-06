@@ -1,10 +1,10 @@
 <template>
   <div class="task">
     <span class="name-task">
-      <input type="checkbox" />
+      <input type="checkbox" @click="$emit('doneTask')" v-model="isDone">
       {{ task.name }}
     </span>
-    <i class="fas fa-trash" @click="$emit('removeTask')"></i>
+    <i class="fas fa-trash remove" @click="$emit('removeTask')"></i>
   </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   props: {
     task: Object,
   },
+  data() {
+    return {
+      isDone: this.task.isDone
+    }
+  }
 };
 </script>
 
@@ -40,4 +45,5 @@ i {
 i:hover {
   color: crimson;
 }
+
 </style>

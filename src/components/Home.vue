@@ -7,7 +7,11 @@
     </div>
     <div class="list">
       <div v-for="(task, index) in tasks" :key="index">
-        <Task @removeTask="removeTask(index)" :task="task" />
+        <Task
+          @removeTask="removeTask(index)"
+          @doneTask="doneTask(index)"
+          :task="task"
+        />
       </div>
     </div>
   </div>
@@ -30,7 +34,7 @@ export default {
     ...mapGetters(["tasks"]),
   },
   methods: {
-    ...mapActions(["AddTask", "RemoveTask"]),
+    ...mapActions(["AddTask", "RemoveTask", "DoneTask"]),
     addTask() {
       this.AddTask({ name: this.task, isDone: false });
       this.task = "";
@@ -39,6 +43,9 @@ export default {
       if (confirm(`index: ${index}`)) {
         this.RemoveTask(index);
       }
+    },
+    doneTask(index) {
+      this.DoneTask(index);
     },
   },
 };
